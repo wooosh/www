@@ -1,0 +1,128 @@
+editor thoughts
+2020.07.28
+
+I want to write my own editor, partially for experience, but also because other
+editors annoy me. There are a few major problems I have with existing editors:
+
+- They use some language for extension that is awkward to use (lua, vimscript,
+elisp)
+- Navigation is complex or not well suited to coding
+- They are no longer just text/code editors, due to feature creep
+
+I aim to solve this issues in my editor, although I'm sure it will be worse in
+different ways to existing editors.
+# Extension Language
+All existing editors with an extension language I know of use a new language for
+extension/customization (except 4coder, which supports C++). The problem with
+this is that these languages are often designed in weird ways that make doing
+anything remotely complex difficult.
+# Navigation
+## Moving By Words
+Most editors currently let you move by line, character, word, or by finding a 
+given string (including go to definition). This seems great until you realize 
+that moving by words in a programming language is stupid, because programming 
+languages are made up of tokens.
+
+Here's an example of moving by "words" in vim: (each `|` represents a cursor
+position)
+```
+|printf|("%|s|\|n|", |my_string|);
+```
+I'm not exactly sure why it `"%` or `", `, but its proves my point that moving
+by words in code doesn't make any sense. The solution here is to move to the end
+of each token, which is defined per language:
+```
+|printf|(|"|%s|\n|"|,| |my_string|)|;|
+```
+**NOTE**: Both `%s` and `\n` are recognized as tokens within the string
+
+## Non-Modal Editing
+I find modal editing to be ineffiecient, because it often ends up taking more 
+time than just pressing control (and maybe even shift) and some other key. 
+Instead, I prefer to use keybinds based on combining control, shift, arrow keys, 
+pgup/pgdown, and home/end. These keybindings already work in every GUI toolkit 
+(GTK2/3, QT, web browsers, etc), and are extremely simple to remember 
+(ctrl to move a word, shift to extend selection). Most other functions are used 
+rather infrequently compared to basic movement, so I'm fine with having them be 
+their own keybinding (such as save, save as, find, macro mode).
+
+## Macros
+Due to the lack of command/extension language, macros are slightly challenging. 
+In my editor, you use ctrl-m-n to start defining a macro, then ctrl-i to define 
+a insertion point/parameter, then ctrl-m again to end macro definition, 
+then you can either type a name, or hit enter to save it to the "temporary" 
+macro.
+
+Then to use a macro, you do ctrl-m macro_name (or hit enter instead of a macro 
+name for the temporary macro), then use tab to move between input fields.
+
+A good example of the repetitve usecase macros are good for: 
+```c
+char *token_type_str(enum token_type t) {
+  switch (t) {
+  case t_lparen:
+    return "'('";
+  case t_rparen:
+    return "')'";
+  case t_lbrace:
+    return "'{'";
+  case t_rbrace:
+    return "'}'";
+  case t_comma:
+    return "','";
+  case t_literal:
+    return "integer literal";
+  case t_identifier:
+    return "identifier";
+  case t_EOF:
+    return "EOF"
+  default:
+    return "unknown";
+  };
+}
+```
+You could define a macro like so:
+```
+<ctrl-m>case t_<ctrl-i>:
+    return "<ctrl-i>";<ctrl-m><ret>
+```
+and then use it:
+```
+<ctrl-m><ret>lparen<tab>'('<tab>
+```
+to create: 
+```
+case t_lparen:
+  return "'('";
+```
+# Feature Creep
+Emacs is famous for feature creep, but other editors also suffer from this,
+including features such as:
+- Terminal multiplexer/window manager
+- A build system
+- A file browser
+- A fancy git ui (not built in, but many people use a plugin for it)
+
+I firmly believe that all of these should be seperate components, after all, 
+why would I want to learn a new windowing system if i want to switch editors? 
+It is relatively easy to set up a pseudo-IDE with a basic text editor like nano,
+tmux and a terminal file manager (such as cfm). I'm not sure why people think 
+editors are UI toolkits.
+# Overall Feature Set
+To recap, these features should be implemented:
+
+- LSP support
+- Code folding
+- Regexes
+- Syntax highlighting
+- Movement and selection with ctrl, shift, arrow keys, pgup/pgdown, and home/end
+- Support for plugins in any language that have C bindings
+- Find (and replace)
+- Automatic identation detection
+- A basic config file
+- Macros
+
+Things that will not be features:
+- A file browser
+- A windowing system (including tabs)
+- A custom extension language

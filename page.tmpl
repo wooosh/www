@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{.Title}}</title>
+    <style>
+    :root {
+  --fg: #222;
+}
+
+* {
+  color: var(--fg);
+}
+
+nav {
+  padding: 1em;
+}
+
+hr {
+  border-top: none;
+  border-width: 1px;
+  border-color: var(--fg);
+}
+
+body {
+  max-width: 600px;
+  min-height: 100vh;
+  margin: auto;
+}
+
+.site_title {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+  color: var(--fg);
+  text-decoration: none;
+  line-height: 1;
+}
+
+article {
+  padding-right: 1em;
+  padding-left: 1em;
+  padding-bottom: 1em;
+  margin: auto;
+  border: 1px solid var(--fg);
+}
+
+article h1, h2, h3, h4, h5 {
+  font-family: sans-serif;
+  line-height: .75;
+}
+
+article h1:not(.article_title) {
+  border-bottom: 1px solid var(--fg);
+  padding-bottom: 0.2em;
+}
+
+article h2 {
+  font-size: 1.35em;
+}
+
+article time {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+article section {
+  font-family: serif;
+}
+
+figure img {
+  max-width: 100%;
+}
+
+figcaption {
+  padding: 2px;
+  font-family: serif;
+  text-align: center;
+}
+    </style>
+    </head>
+    <body>
+        <nav>
+            <a class="site_title" href="/">wooo.sh</a>
+        </nav>
+        <article>
+            <h1 class="article_title">{{.Title}}</h1>
+            <time>Posted on {{.Date}}</time>
+            <hr>
+            {{.Content}}
+        </article>
+    </body>
+</html>
