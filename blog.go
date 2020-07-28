@@ -15,10 +15,15 @@ func check(e error) {
     }
 }
 
-type page struct {
+type Page struct {
     Title string
     Date string
+    Filename string
     Content string
+}
+
+type Wrapper struct {
+    Pages []Page
 }
 
 func getLine(r *bufio.Reader) string {
@@ -34,13 +39,17 @@ func main() {
 
     tmpl, err := template.ParseFiles("page.tmpl")
     check(err)
+    indexTmpl, err := template.ParseFiles("index.tmpl")
+    check(err)
 
-    var p page
+    var pages []Page
+    var p Page
     for _, fileInfo := range files {
         fmt.Println(fileInfo.Name()) 
+        p.Filename = fileInfo.Name() + ".html"
 
         file, err := os.Open("pages/" + fileInfo.Name())
-        outfile, err := os.Create("docs/" + fileInfo.Name())
+        outfile, err := os.Create("docs/" + fileInfo.Name() + ".html")
         check(err)
 
         r := bufio.NewReader(file)
@@ -60,5 +69,14 @@ func main() {
         check(err)
 
         file.Close()
-    }    
+        pages = append(pages, p)
+    }
+    indexFile, err := os.Create("docs/index.html")
+    check(err)
+    var w Wrapper
+    w.Pages = pages
+    // TODO: sort by date    
+    indexTmpl.Execute(indexFile, w)
+
+    indexFile.Close()
 }

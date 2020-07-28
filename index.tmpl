@@ -58,21 +58,12 @@ main table {
 
     <main>
         <table>
-            
+            {{range .Pages}}
             <tr>
-                <td><a href="/editor_thoughts.html">editor thoughts
-</a></td>
-                <td align="right">2020.07.28
-</td>
+                <td><a href="/{{.Filename}}">{{.Title}}</a></td>
+                <td align="right">{{.Date}}</td>
             </tr>
-            
-            <tr>
-                <td><a href="/test.html">test article
-</a></td>
-                <td align="right">2020.12.20
-</td>
-            </tr>
-            
+            {{end}}
     </main>
   </body>
 </html>
