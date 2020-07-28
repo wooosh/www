@@ -7,6 +7,8 @@ import (
     "fmt"
     "bytes"
     "text/template"
+    "sort"
+    "strings"
 )
 
 func check(e error) {
@@ -73,10 +75,17 @@ func main() {
     }
     indexFile, err := os.Create("docs/index.html")
     check(err)
-    var w Wrapper
-    w.Pages = pages
+
+    sort.Slice(pages, func(i, j int) bool {
+        v := strings.Compare(pages[i].Title, pages[j].Title);
+        if v == 1 {
+            return true
+        } else {
+            return false
+        } 
+    })    
     // TODO: sort by date    
-    indexTmpl.Execute(indexFile, w)
+    indexTmpl.Execute(indexFile, Wrapper{pages})
 
     indexFile.Close()
 }
