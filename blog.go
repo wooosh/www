@@ -1,5 +1,7 @@
 package main
 
+// TODO: remove newline from filenames
+
 import (
     "io/ioutil"
     "bufio"
@@ -43,6 +45,8 @@ func main() {
     check(err)
     indexTmpl, err := template.ParseFiles("index.tmpl")
     check(err)
+    rssTmpl, err := template.ParseFiles("rss.tmpl")
+    check(err)
 
     var pages []Page
     var p Page
@@ -73,8 +77,6 @@ func main() {
         file.Close()
         pages = append(pages, p)
     }
-    indexFile, err := os.Create("docs/index.html")
-    check(err)
 
     sort.Slice(pages, func(i, j int) bool {
         v := strings.Compare(pages[i].Title, pages[j].Title);
@@ -84,8 +86,14 @@ func main() {
             return false
         } 
     })    
-    // TODO: sort by date    
+    
+    indexFile, err := os.Create("docs/index.html")
+    check(err)
     indexTmpl.Execute(indexFile, Wrapper{pages})
-
     indexFile.Close()
+    
+    rssFile, err := os.Create("docs/feed.rss")
+    check(err)
+    rssTmpl.Execute(rssFile, Wrapper{pages})
+    rssFile.Close()
 }

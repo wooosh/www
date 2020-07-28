@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <title>wooosh's blog</title>
+    <link>https://blog.wooo.sh/</link>
+    <description>blog</description>
+    
+    <item>
+       <title>test article
+</title>
+       <link>https://blog.wooo.sh/test.html</link>
+       <description></description>
+    </item>
+    
+    <item>
+       <title>test 2
+</title>
+       <link>https://blog.wooo.sh/test2.html</link>
+       <description></description>
+    </item>
+    
+    <item>
+       <title>editor thoughts
+</title>
+       <link>https://blog.wooo.sh/editor_thoughts.html</link>
+       <description></description>
+    </item>
+    
+  </channel>
+</rss>
