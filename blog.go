@@ -28,7 +28,7 @@ func getLine(r *bufio.Reader) string {
 }
 
 func main() {
-    _ = os.Mkdir("public", 0777)
+    _ = os.Mkdir("docs", 0777)
     files, err := ioutil.ReadDir("pages")
     check(err)
 
@@ -40,7 +40,7 @@ func main() {
         fmt.Println(fileInfo.Name()) 
 
         file, err := os.Open("pages/" + fileInfo.Name())
-        outfile, err := os.Create("public/" + fileInfo.Name())
+        outfile, err := os.Create("docs/" + fileInfo.Name())
         check(err)
 
         r := bufio.NewReader(file)
@@ -58,8 +58,6 @@ func main() {
 
         err = tmpl.Execute(outfile, p)
         check(err)
-
-        //err = ioutil.WriteFile("public/" + fileInfo.Name(), renderPage(buf.Bytes()), 0644)
 
         file.Close()
     }    
