@@ -98,13 +98,14 @@ case t_lparen:
 # Feature Creep
 Emacs is famous for feature creep, but other editors also suffer from this,
 including features such as:
+
 - Terminal multiplexer/window manager
 - A build system
 - A file browser
 - A fancy git ui (not built in, but many people use a plugin for it)
 
 I firmly believe that all of these should be seperate components, after all, 
-why would I want to learn a new windowing system if i want to switch editors? 
+why would I want to learn a new windowing system if I want to switch editors? 
 It is relatively easy to set up a pseudo-IDE with a basic text editor like nano,
 tmux and a terminal file manager (such as cfm). I'm not sure why people think 
 editors are UI toolkits.
@@ -123,6 +124,7 @@ To recap, these features should be implemented:
 - Macros
 
 Things that will not be features:
+
 - A file browser
 - A windowing system (including tabs)
 - A custom extension language
