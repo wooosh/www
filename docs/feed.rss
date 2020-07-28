@@ -9,156 +9,21 @@
        <title>test article
 </title>
        <link>https://blog.wooo.sh/test.html</link>
-       <description><p>some words</p>
-</description>
+       <description>View on https://blog.wooo.sh/test.html</description>
     </item>
     
     <item>
        <title>test 2
 </title>
        <link>https://blog.wooo.sh/test2.html</link>
-       <description><p>asdfasf</p>
-</description>
+       <description>View on https://blog.wooo.sh/test2.html</description>
     </item>
     
     <item>
        <title>editor thoughts
 </title>
        <link>https://blog.wooo.sh/editor_thoughts.html</link>
-       <description><p>I want to write my own editor, partially for experience, but also because other
-editors annoy me. There are a few major problems I have with existing editors:</p>
-
-<ul>
-<li>They use some language for extension that is awkward to use (lua, vimscript,
-elisp)</li>
-<li>Navigation is complex or not well suited to coding</li>
-<li>They are no longer just text/code editors, due to feature creep</li>
-</ul>
-
-<p>I aim to solve this issues in my editor, although I'm sure it will be worse in
-different ways to existing editors.</p>
-
-<h1>Extension Language</h1>
-
-<p>All existing editors with an extension language I know of use a new language for
-extension/customization (except 4coder, which supports C++). The problem with
-this is that these languages are often designed in weird ways that make doing
-anything remotely complex difficult.</p>
-
-<h1>Navigation</h1>
-
-<h2>Moving By Words</h2>
-
-<p>Most editors currently let you move by line, character, word, or by finding a
-given string (including go to definition). This seems great until you realize
-that moving by words in a programming language is stupid, because programming
-languages are made up of tokens.</p>
-
-<p>Here's an example of moving by &quot;words&quot; in vim: (each <code>|</code> represents a cursor
-position)</p>
-<pre style="background-color:#fff">|printf|(&#34;%|s|\|n|&#34;, |my_string|);
-</pre>
-<p>I'm not exactly sure why it <code>&quot;%</code> or <code>&quot;,</code>, but its proves my point that moving
-by words in code doesn't make any sense. The solution here is to move to the end
-of each token, which is defined per language:</p>
-<pre style="background-color:#fff">|printf|(|&#34;|%s|\n|&#34;|,| |my_string|)|;|
-</pre>
-<p><strong>NOTE</strong>: Both <code>%s</code> and <code>\n</code> are recognized as tokens within the string</p>
-
-<h2>Non-Modal Editing</h2>
-
-<p>I find modal editing to be ineffiecient, because it often ends up taking more
-time than just pressing control (and maybe even shift) and some other key.
-Instead, I prefer to use keybinds based on combining control, shift, arrow keys,
-pgup/pgdown, and home/end. These keybindings already work in every GUI toolkit
-(GTK2/3, QT, web browsers, etc), and are extremely simple to remember
-(ctrl to move a word, shift to extend selection). Most other functions are used
-rather infrequently compared to basic movement, so I'm fine with having them be
-their own keybinding (such as save, save as, find, macro mode).</p>
-
-<h2>Macros</h2>
-
-<p>Due to the lack of command/extension language, macros are slightly challenging.
-In my editor, you use ctrl-m-n to start defining a macro, then ctrl-i to define
-a insertion point/parameter, then ctrl-m again to end macro definition,
-then you can either type a name, or hit enter to save it to the &quot;temporary&quot;
-macro.</p>
-
-<p>Then to use a macro, you do ctrl-m macro_name (or hit enter instead of a macro
-name for the temporary macro), then use tab to move between input fields.</p>
-
-<p>A good example of the repetitve usecase macros are good for:</p>
-<pre style="background-color:#fff"><span style="">char</span> *token_type_str(<span style="font-weight:bold">enum</span> token_type t) {
-  <span style="font-weight:bold">switch</span> (t) {
-  <span style="font-weight:bold">case</span> t_lparen:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;(&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_rparen:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;)&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_lbrace:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;{&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_rbrace:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;}&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_comma:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;,&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_literal:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">integer literal</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_identifier:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">identifier</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_EOF:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">EOF</span><span style="font-style:italic">&#34;</span>
-  <span style="font-weight:bold">default</span>:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">unknown</span><span style="font-style:italic">&#34;</span>;
-  };
-}
-</pre>
-<p>You could define a macro like so:</p>
-<pre style="background-color:#fff">&lt;ctrl-m&gt;case t_&lt;ctrl-i&gt;:
-    return &#34;&lt;ctrl-i&gt;&#34;;&lt;ctrl-m&gt;&lt;ret&gt;
-</pre>
-<p>and then use it:</p>
-<pre style="background-color:#fff">&lt;ctrl-m&gt;&lt;ret&gt;lparen&lt;tab&gt;&#39;(&#39;&lt;tab&gt;
-</pre>
-<p>to create:</p>
-<pre style="background-color:#fff">case t_lparen:
-  return &#34;&#39;(&#39;&#34;;
-</pre>
-<h1>Feature Creep</h1>
-
-<p>Emacs is famous for feature creep, but other editors also suffer from this,
-including features such as:
-- Terminal multiplexer/window manager
-- A build system
-- A file browser
-- A fancy git ui (not built in, but many people use a plugin for it)</p>
-
-<p>I firmly believe that all of these should be seperate components, after all,
-why would I want to learn a new windowing system if i want to switch editors?
-It is relatively easy to set up a pseudo-IDE with a basic text editor like nano,
-tmux and a terminal file manager (such as cfm). I'm not sure why people think
-editors are UI toolkits.</p>
-
-<h1>Overall Feature Set</h1>
-
-<p>To recap, these features should be implemented:</p>
-
-<ul>
-<li>LSP support</li>
-<li>Code folding</li>
-<li>Regexes</li>
-<li>Syntax highlighting</li>
-<li>Movement and selection with ctrl, shift, arrow keys, pgup/pgdown, and home/end</li>
-<li>Support for plugins in any language that have C bindings</li>
-<li>Find (and replace)</li>
-<li>Automatic identation detection</li>
-<li>A basic config file</li>
-<li>Macros</li>
-</ul>
-
-<p>Things that will not be features:
-- A file browser
-- A windowing system (including tabs)
-- A custom extension language</p>
-</description>
+       <description>View on https://blog.wooo.sh/editor_thoughts.html</description>
     </item>
     
   </channel>
