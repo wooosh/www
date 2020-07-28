@@ -6,7 +6,10 @@ editors annoy me. There are a few major problems I have with existing editors:
 
 - They use some language for extension that is awkward to use (lua, vimscript,
 elisp)
-- Navigation is complex or not well suited to coding
+- Moving by words is not well suited to coding
+- Macros are complicated
+- Modal editing is inefficient, and most non-modal editors use confusing
+ keybinds
 - They are no longer just text/code editors, due to feature creep
 
 I aim to solve this issues in my editor, although I'm sure it will be worse in
@@ -16,8 +19,7 @@ All existing editors with an extension language I know of use a new language for
 extension/customization (except 4coder, which supports C++). The problem with
 this is that these languages are often designed in weird ways that make doing
 anything remotely complex difficult.
-# Navigation
-## Moving By Words
+# Moving By Words
 Most editors currently let you move by line, character, word, or by finding a 
 given string (including go to definition). This seems great until you realize 
 that moving by words in a programming language is stupid, because programming 
@@ -36,7 +38,7 @@ of each token, which is defined per language:
 ```
 **NOTE**: Both `%s` and `\n` are recognized as tokens within the string
 
-## Non-Modal Editing
+# Non-Modal Editing
 I find modal editing to be ineffiecient, because it often ends up taking more 
 time than just pressing control (and maybe even shift) and some other key. 
 Instead, I prefer to use keybinds based on combining control, shift, arrow keys, 
@@ -46,7 +48,7 @@ pgup/pgdown, and home/end. These keybindings already work in every GUI toolkit
 rather infrequently compared to basic movement, so I'm fine with having them be 
 their own keybinding (such as save, save as, find, macro mode).
 
-## Macros
+# Macros
 Due to the lack of command/extension language, macros are slightly challenging. 
 In my editor, you use ctrl-m-n to start defining a macro, then ctrl-i to define 
 a insertion point/parameter, then ctrl-m again to end macro definition, 

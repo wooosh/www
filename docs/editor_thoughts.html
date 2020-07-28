@@ -99,7 +99,10 @@ editors annoy me. There are a few major problems I have with existing editors:</
 <ul>
 <li>They use some language for extension that is awkward to use (lua, vimscript,
 elisp)</li>
-<li>Navigation is complex or not well suited to coding</li>
+<li>Moving by words is not well suited to coding</li>
+<li>Macros are complicated</li>
+<li>Modal editing is inefficient, and most non-modal editors use confusing
+keybinds</li>
 <li>They are no longer just text/code editors, due to feature creep</li>
 </ul>
 
@@ -113,9 +116,7 @@ extension/customization (except 4coder, which supports C++). The problem with
 this is that these languages are often designed in weird ways that make doing
 anything remotely complex difficult.</p>
 
-<h1>Navigation</h1>
-
-<h2>Moving By Words</h2>
+<h1>Moving By Words</h1>
 
 <p>Most editors currently let you move by line, character, word, or by finding a
 given string (including go to definition). This seems great until you realize
@@ -133,7 +134,7 @@ of each token, which is defined per language:</p>
 </pre>
 <p><strong>NOTE</strong>: Both <code>%s</code> and <code>\n</code> are recognized as tokens within the string</p>
 
-<h2>Non-Modal Editing</h2>
+<h1>Non-Modal Editing</h1>
 
 <p>I find modal editing to be ineffiecient, because it often ends up taking more
 time than just pressing control (and maybe even shift) and some other key.
@@ -144,7 +145,7 @@ pgup/pgdown, and home/end. These keybindings already work in every GUI toolkit
 rather infrequently compared to basic movement, so I'm fine with having them be
 their own keybinding (such as save, save as, find, macro mode).</p>
 
-<h2>Macros</h2>
+<h1>Macros</h1>
 
 <p>Due to the lack of command/extension language, macros are slightly challenging.
 In my editor, you use ctrl-m-n to start defining a macro, then ctrl-i to define
