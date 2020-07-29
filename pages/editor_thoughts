@@ -8,7 +8,7 @@ decided to write my own editor. There are a couple of reasons for this:
 - No editor currently does movement in the way I want, and adapting current
 editors would be a pain
 - Every editor I've tried is too far on one end of the complexity spectrum
-- I want to experiment with combining a simpler editor with other software to
+- I want to experiment with combining a simple editor with other software to
 create a development environment
 - I'm tired of using a weird language for plugins and configuration (vimscript)
 
@@ -32,7 +32,7 @@ each [token](https://en.wikipedia.org/wiki/Lexical_analysis#Token):
 **NOTE:** `%s` and `\n` are both recognized as individual tokens here.
 
 # complexity/simplicity/scope
-I find vim to be too large in scope to fully grasp, without dedicating more time
+I find vim to be too large in scope to fully grasp without dedicating more time
 to learning it than I deem reasonable. Given the number of operations I use on a
 day-to-day basis I don't think modal editing is neccesary either.
 
@@ -79,10 +79,10 @@ vimscript, I want to load shared objects as plugins at runtime. This gives me
 the option of using any number of languages such as rust, go, or c/c++ for 
 writing plugins.
 
+Using one of these languages has the disadvantage of not being perfectly
+tailored to editing, but it makes implmenting large plugins easier. 
+
 # recap
 My main goal is to make an editor that hits the perfect balance between
 complexity and simplicity for myself. Things are likely to change from what I've
 written here as I progress through development.
-
-Unfortunately I will likely not start work on this for a while (~3 months)
-due to already having a fairly large project underway.
