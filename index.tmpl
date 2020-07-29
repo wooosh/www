@@ -54,11 +54,18 @@ table {
   width: 100%;
 }
 
-section h1 {
+table tr:first-child td {
   font-family: sans-serif;
   border-bottom: 1px solid var(--fg);
-  padding-bottom: 0.2em;
-  margin-bottom: 0;
+  font-weight: 700;
+}
+
+tr:first-child td a {
+  text-decoration: none;
+}
+
+table tr:first-child td:first-child {
+  /*font-size: 1.5em;*/
 }
 
 .center {
@@ -76,10 +83,10 @@ section h1 {
         <img class="center" src="images/welcome.gif"/>
     </section>
     <section>
-        <h1>articles</h1>
         <table>
             <tr>
-                <td><a type="application/rss+xml" href="feed.rss">RSS feed</a></td>
+                <td>articles</td>
+                <td align="right"><a type="application/rss+xml" href="feed.rss">rss feed</a></td>
             </tr>
             {{range .Pages}}
             <tr>
