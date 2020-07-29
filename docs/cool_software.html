@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>blog</title>
+    <title>cool things</title>
     <style>
         :root {
   --fg: #222;
@@ -80,30 +80,19 @@ table tr:first-child td:first-child {
     </nav>
 
     <section>
-        <img class="center" src="images/welcome.gif"/>
-        <p>design is not my passion</p>
+        <p>cool things</p>
     </section>
     
     <section>
-        <p>other stuff:</p>
         <ul>
-            <li><a href="/cool_software.html">cool software</a></li>
-            <li><a href="https://github.com/wooosh">github</a></li>
+            <li><a href="https://herbstluftwm.org/">herbstluftwm (tiling wm)</a></li>
+            <li><a href="https://github.com/willeccles/cfm">cfm (cactus file manager)</a></li>
+            <li><a href="https://voidlinux.org/">void linux</a></li>
+            <li><a href="https://k1ss.org/">kiss linux</a></li>
         </ul>
     </section>
 
-    <section>
-        <table>
-            <tr>
-                <td>articles</td>
-                <td align="right"><a type="application/rss+xml" href="feed.rss">rss feed</a></td>
-            </tr>
-            {{range .Pages}}
-            <tr>
-                <td><a href="/{{.Filename}}">{{.Title}}</a></td>
-                <td align="right">{{.Date}}</td>
-            </tr>
-            {{end}}
+            
         </table>
     </section>
   </body>
