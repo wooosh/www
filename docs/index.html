@@ -41,16 +41,29 @@ body {
   border-bottom: none;
 }
 
-main {
+section {
   background-color: white;
   padding-right: 1em;
   padding-left: 1em;
   margin: auto;
+  margin-bottom: 1em;
   border: 1px solid var(--fg);
 }
 
-main table {
+table {
   width: 100%;
+}
+
+section h1 {
+  font-family: sans-serif;
+  border-bottom: 1px solid var(--fg);
+  padding-bottom: 0.2em;
+  margin-bottom: 0;
+}
+
+.center {
+    margin: auto;
+    width: 100%;
 }
     </style>
   </head>
@@ -59,8 +72,15 @@ main table {
         <a class="site_title" href="/">wooo.sh</a>
     </nav>
 
-    <main>
+    <section>
+        <img class="center" src="images/welcome.gif"/>
+    </section>
+    <section>
+        <h1>articles</h1>
         <table>
+            <tr>
+                <td><a type="application/rss+xml" href="feed.rss">RSS feed</a></td>
+            </tr>
             
             <tr>
                 <td><a href="/editor_thoughts.html">why i'm writing my own editor
@@ -70,7 +90,6 @@ main table {
             </tr>
             
         </table>
-        <a type="application/rss+xml" href="feed.rss">RSS feed for this page</a>
-    </main>
+    </section>
   </body>
 </html>
