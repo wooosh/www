@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>editor thoughts
+    <title>why i'm writing my own editor
 </title>
     <style>
     :root {
@@ -53,6 +53,7 @@ article {
 article h1, h2, h3, h4, h5 {
   font-family: sans-serif;
   line-height: .75;
+  margin-bottom: 5px;
 }
 
 article h1:not(.article_title) {
@@ -70,11 +71,11 @@ article time {
   font-weight: bold;
 }
 
-article section {
+article {
   font-family: serif;
 }
 
-figure img {
+img {
   max-width: 100%;
 }
 
@@ -83,6 +84,11 @@ figcaption {
   font-family: serif;
   text-align: center;
 }
+
+td {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
     </style>
     </head>
     <body>
@@ -90,151 +96,148 @@ figcaption {
             <a class="site_title" href="/">wooo.sh</a>
         </nav>
         <article>
-            <h1 class="article_title">editor thoughts
+            <h1 class="article_title">why i'm writing my own editor
 </h1>
-            <time>Posted on 2020.07.28
+            <time>Posted on 2020.7.29
 </time>
             <hr>
-            <p>I want to write my own editor, partially for experience, but also because other
-editors annoy me. There are a few major problems I have with existing editors:</p>
+            <p>After using vim for a few years and trying some non-modal editors recently, I
+decided to write my own editor. There are a couple of reasons for this:</p>
 
 <ul>
-<li>They use some language for extension that is awkward to use (lua, vimscript,
-elisp)</li>
-<li>Moving by words is not well suited to coding</li>
-<li>Macros are complicated</li>
-<li>Modal editing is inefficient, and most non-modal editors use confusing
-keybinds</li>
-<li>They are no longer just text/code editors, due to feature creep</li>
+<li>Writing an editor seems like a cool project</li>
+<li>No editor currently does movement in the way I want, and adapting current
+editors would be a pain</li>
+<li>Every editor I've tried is too far on one end of the complexity spectrum</li>
+<li>I want to experiment with combining a simpler editor with other software to
+create a development environment</li>
+<li>I'm tired of using a weird language for plugins and configuration (vimscript)</li>
 </ul>
 
-<p>I aim to solve this issues in my editor, although I'm sure it will be worse in
-different ways to existing editors.</p>
+<h1>editor movement</h1>
 
-<h1>Extension Language</h1>
-
-<p>All existing editors with an extension language I know of use a new language for
-extension/customization (except 4coder, which supports C++). The problem with
-this is that these languages are often designed in weird ways that make doing
-anything remotely complex difficult.</p>
-
-<h1>Moving By Words</h1>
-
-<p>Most editors currently let you move by line, character, word, or by finding a
-given string (including go to definition). This seems great until you realize
-that moving by words in a programming language is stupid, because programming
-languages are made up of tokens.</p>
-
-<p>Here's an example of moving by &quot;words&quot; in vim: (each <code>|</code> represents a cursor
-position)</p>
+<p>The editors I've used all use a concept of words for navigation, which is not
+conducive to navigating code. For example, each <code>|</code> shows a &quot;word&quot; boundary
+according to vim:</p>
 <pre style="background-color:#fff">|printf|(&#34;%|s|\|n|&#34;, |my_string|);
 </pre>
-<p>I'm not exactly sure why it <code>&quot;%</code> or <code>&quot;,</code>, but its proves my point that moving
-by words in code doesn't make any sense. The solution here is to move to the end
-of each token, which is defined per language:</p>
+<p>The logic for what defines a word seems to be all over the place, and ideally
+I want something more like this, where there is a word boundary at the end of
+each <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Token">token</a>:</p>
 <pre style="background-color:#fff">|printf|(|&#34;|%s|\n|&#34;|,| |my_string|)|;|
 </pre>
-<p><strong>NOTE</strong>: Both <code>%s</code> and <code>\n</code> are recognized as tokens within the string</p>
+<p><strong>NOTE:</strong> <code>%s</code> and <code>\n</code> are both recognized as individual tokens here.</p>
 
-<h1>Non-Modal Editing</h1>
+<h1>complexity/simplicity/scope</h1>
 
-<p>I find modal editing to be ineffiecient, because it often ends up taking more
-time than just pressing control (and maybe even shift) and some other key.
-Instead, I prefer to use keybinds based on combining control, shift, arrow keys,
-pgup/pgdown, and home/end. These keybindings already work in every GUI toolkit
-(GTK2/3, QT, web browsers, etc), and are extremely simple to remember
-(ctrl to move a word, shift to extend selection). Most other functions are used
-rather infrequently compared to basic movement, so I'm fine with having them be
-their own keybinding (such as save, save as, find, macro mode).</p>
+<p>I find vim to be too large in scope to fully grasp, without dedicating more time
+to learning it than I deem reasonable. Given the number of operations I use on a
+day-to-day basis I don't think modal editing is neccesary either.</p>
 
-<h1>Macros</h1>
+<p>I intend to only have a few keybindings in my editor, mostly based around
+movement:</p>
 
-<p>Due to the lack of command/extension language, macros are slightly challenging.
-In my editor, you use ctrl-m-n to start defining a macro, then ctrl-i to define
-a insertion point/parameter, then ctrl-m again to end macro definition,
-then you can either type a name, or hit enter to save it to the &quot;temporary&quot;
-macro.</p>
+<table>
+<thead>
+<tr>
+<th>Keybind</th>
+<th>Function</th>
+</tr>
+</thead>
 
-<p>Then to use a macro, you do ctrl-m macro_name (or hit enter instead of a macro
-name for the temporary macro), then use tab to move between input fields.</p>
+<tbody>
+<tr>
+<td>Ctrl-S</td>
+<td>Save</td>
+</tr>
 
-<p>A good example of the repetitve usecase macros are good for:</p>
-<pre style="background-color:#fff"><span style="">char</span> *token_type_str(<span style="font-weight:bold">enum</span> token_type t) {
-  <span style="font-weight:bold">switch</span> (t) {
-  <span style="font-weight:bold">case</span> t_lparen:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;(&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_rparen:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;)&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_lbrace:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;{&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_rbrace:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;}&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_comma:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">&#39;,&#39;</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_literal:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">integer literal</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_identifier:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">identifier</span><span style="font-style:italic">&#34;</span>;
-  <span style="font-weight:bold">case</span> t_EOF:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">EOF</span><span style="font-style:italic">&#34;</span>
-  <span style="font-weight:bold">default</span>:
-    <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">unknown</span><span style="font-style:italic">&#34;</span>;
-  };
-}
-</pre>
-<p>You could define a macro like so:</p>
-<pre style="background-color:#fff">&lt;ctrl-m&gt;case t_&lt;ctrl-i&gt;:
-    return &#34;&lt;ctrl-i&gt;&#34;;&lt;ctrl-m&gt;&lt;ret&gt;
-</pre>
-<p>and then use it:</p>
-<pre style="background-color:#fff">&lt;ctrl-m&gt;&lt;ret&gt;lparen&lt;tab&gt;&#39;(&#39;&lt;tab&gt;
-</pre>
-<p>to create:</p>
-<pre style="background-color:#fff">case t_lparen:
-  return &#34;&#39;(&#39;&#34;;
-</pre>
-<h1>Feature Creep</h1>
+<tr>
+<td>Ctrl-Shift-S</td>
+<td>Save as</td>
+</tr>
 
-<p>Emacs is famous for feature creep, but other editors also suffer from this,
-including features such as:</p>
+<tr>
+<td>PgUp/PgDown</td>
+<td>Page up/Down</td>
+</tr>
 
-<ul>
-<li>Terminal multiplexer/window manager</li>
-<li>A build system</li>
-<li>A file browser</li>
-<li>A fancy git ui (not built in, but many people use a plugin for it)</li>
-</ul>
+<tr>
+<td>Home/End</td>
+<td>Start/end of line</td>
+</tr>
 
-<p>I firmly believe that all of these should be seperate components, after all,
-why would I want to learn a new windowing system if I want to switch editors?
-It is relatively easy to set up a pseudo-IDE with a basic text editor like nano,
-tmux and a terminal file manager (such as cfm). I'm not sure why people think
-editors are UI toolkits.</p>
+<tr>
+<td>Ctrl-Home/End</td>
+<td>Select whole line and put cursor at start/end of line</td>
+</tr>
 
-<h1>Overall Feature Set</h1>
+<tr>
+<td>Arrows</td>
+<td>Move one cell in a direction</td>
+</tr>
 
-<p>To recap, these features should be implemented:</p>
+<tr>
+<td>Ctrl-Left/Right Arrow</td>
+<td>Move one token left/right</td>
+</tr>
 
-<ul>
-<li>LSP support</li>
-<li>Code folding</li>
-<li>Regexes</li>
-<li>Syntax highlighting</li>
-<li>Movement and selection with ctrl, shift, arrow keys, pgup/pgdown, and home/end</li>
-<li>Support for plugins in any language that have C bindings</li>
-<li>Find (and replace)</li>
-<li>Automatic identation detection</li>
-<li>A basic config file</li>
-<li>Macros</li>
-</ul>
+<tr>
+<td>Shift-Movement</td>
+<td>Extend or start selection</td>
+</tr>
 
-<p>Things that will not be features:</p>
+<tr>
+<td>Ctrl-F</td>
+<td>Find and replace (including regex)</td>
+</tr>
 
-<ul>
-<li>A file browser</li>
-<li>A windowing system (including tabs)</li>
-<li>A custom extension language</li>
-</ul>
+<tr>
+<td>Ctrl-M</td>
+<td>Run or record macro</td>
+</tr>
+
+<tr>
+<td>Ctrl-[, Ctrl-]</td>
+<td>Fold/Unfold block</td>
+</tr>
+</tbody>
+</table>
+<p>One important thing to note here is that on both keyboards I use (laptop and a
+60% w/arrow keys), the arrow keys are right below enter and are much closer to
+the home row than on typical keyboards. It might make sense to consider
+alternate bindings or a modal editor for keyboards that have the arrow keys
+positioned somewhere more inconvenient.</p>
+
+<h1>software composition</h1>
+
+<p>Previously, vim was my entire development environment: file manager, editor,
+terminal multiplexer, build system binds, etc. Now, instead of having everything
+inside my editor, I want to have everything loosely coupled together with a
+standalone terminal multiplexer such as dvtm or tmux.</p>
+
+<p><img src="images/editor_ide.png" alt="IDE Example" />
+<img src="images/editor_tmux.png" alt="Tmux, CFM, vim and a terminal" /></p>
+
+<p>Ideally I have the terminal multiplexer manage keybinds, and link everything
+together. This way if I decide I'm no longer a fan of my editor, then switching
+a new editor into my development environment should be easy, while still
+maintaining the same general workflow.</p>
+
+<h1>plugins w/ffi</h1>
+
+<p>Instead of having to directly edit the editors source or using something like
+vimscript, I want to load shared objects as plugins at runtime. This gives me
+the option of using any number of languages such as rust, go, or c/c++ for
+writing plugins.</p>
+
+<h1>recap</h1>
+
+<p>My main goal is to make an editor that hits the perfect balance between
+complexity and simplicity for myself. Things are likely to change from what I've
+written here as I progress through development.</p>
+
+<p>Unfortunately I will likely not start work on this for a while (~3 months)
+due to already having a fairly large project underway.</p>
 
         </article>
     </body>

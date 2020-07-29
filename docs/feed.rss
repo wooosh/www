@@ -6,21 +6,7 @@
     <description>blog</description>
     
     <item>
-       <title>test article
-</title>
-       <link>https://blog.wooo.sh/test.html</link>
-       <description>View on https://blog.wooo.sh/test.html</description>
-    </item>
-    
-    <item>
-       <title>test 2
-</title>
-       <link>https://blog.wooo.sh/test2.html</link>
-       <description>View on https://blog.wooo.sh/test2.html</description>
-    </item>
-    
-    <item>
-       <title>editor thoughts
+       <title>why i'm writing my own editor
 </title>
        <link>https://blog.wooo.sh/editor_thoughts.html</link>
        <description>View on https://blog.wooo.sh/editor_thoughts.html</description>
