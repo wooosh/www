@@ -6,6 +6,13 @@
     <description>blog</description>
     
     <item>
+       <title>setting up a nixos mailserver on a debian vps
+</title>
+       <link>https://blog.wooo.sh/nixos_mail.html</link>
+       <description>View on https://blog.wooo.sh/nixos_mail.html</description>
+    </item>
+    
+    <item>
        <title>why i'm writing my own editor
 </title>
        <link>https://blog.wooo.sh/editor_thoughts.html</link>

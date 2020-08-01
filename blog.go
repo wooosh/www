@@ -80,11 +80,7 @@ func main() {
 
     sort.Slice(pages, func(i, j int) bool {
         v := strings.Compare(pages[i].Title, pages[j].Title);
-        if v == 1 {
-            return true
-        } else {
-            return false
-        } 
+        return v != 1
     })    
     
     indexFile, err := os.Create("docs/index.html")
