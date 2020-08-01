@@ -57,7 +57,6 @@ article h1, h2, h3, h4, h5 {
 }
 
 article h1:not(.article_title) {
-  border-bottom: 1px solid var(--fg);
   padding-bottom: 0.2em;
   margin-bottom: -10px;
 }
@@ -68,7 +67,7 @@ article h2 {
 
 article time {
   font-family: sans-serif;
-  font-weight: bold;
+  color: #777;
 }
 
 article {
@@ -103,9 +102,8 @@ td {
         <article>
             <h1 class="article_title">why i'm writing my own editor
 </h1>
-            <time>Posted on 2020.07.29
+            <time>posted on 2020.07.29
 </time>
-            <hr>
             <p>After using vim for a few years and trying some non-modal editors recently, I
 decided to write my own editor. There are a couple of reasons for this:</p>
 

@@ -56,7 +56,6 @@ article h1, h2, h3, h4, h5 {
 }
 
 article h1:not(.article_title) {
-  border-bottom: 1px solid var(--fg);
   padding-bottom: 0.2em;
   margin-bottom: -10px;
 }
@@ -67,7 +66,7 @@ article h2 {
 
 article time {
   font-family: sans-serif;
-  font-weight: bold;
+  color: #777;
 }
 
 article {
@@ -101,8 +100,7 @@ td {
         </nav>
         <article>
             <h1 class="article_title">{{.Title}}</h1>
-            <time>Posted on {{.Date}}</time>
-            <hr>
+            <time>posted on {{.Date}}</time>
             {{.Content}}
         </article>
     </body>
