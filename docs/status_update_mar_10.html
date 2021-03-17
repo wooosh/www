@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="Description" content="wooosh's blog">
+    <title>status update - march 10th
+</title>
+    <style>
+    :root {
+  --fg: #222;
+}
+
+* {
+  color: var(--fg);
+}
+
+nav {
+  padding: 1em;
+}
+
+hr {
+  border-top: none;
+  border-width: 1px;
+  border-color: var(--fg);
+}
+
+body {
+  max-width: 700px;
+  min-height: 100vh;
+  margin: auto;
+  background-color: #eee;
+}
+
+.site_title {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+  color: var(--fg);
+  text-decoration: none;
+  line-height: 1;
+}
+
+article {
+  background-color: white;
+  padding-right: 1em;
+  padding-left: 1em;
+  padding-bottom: 1em;
+  margin: auto;
+  border: 1px solid var(--fg);
+}
+
+article h1, h2, h3, h4, h5 {
+  font-family: sans-serif;
+  margin-bottom: 5px;
+}
+
+article h1:not(.article_title) {
+  padding-bottom: 0.2em;
+  margin-bottom: -10px;
+}
+
+article h2 {
+  font-size: 1.35em;
+}
+
+article time {
+  font-family: sans-serif;
+  color: #777;
+}
+
+article {
+  font-family: serif;
+}
+
+article a::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
+}
+
+img {
+  max-width: 100%;
+}
+
+figcaption {
+  padding: 2px;
+  font-family: serif;
+  text-align: center;
+}
+
+td {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+    </style>
+    </head>
+    <body>
+        <nav>
+            <a class="site_title" href="/">wooo.sh</a>
+        </nav>
+        <article>
+            <h1 class="article_title">status update - march 10th
+</h1>
+            <time>posted on 2020.03.10
+</time>
+            <p>It’s been quite some time since I’ve last posted here, and I’ve made significant progress on my <a href="github.com/wooosh/oswald">text editor</a> and a few other projects.</p>
+
+<h1>editor heritage &amp; design</h1>
+
+<p>Oswald (my editor) is technically a fork of <code>kilo</code> (link), which is a simple editor in about 1,000 lines of C code. At this point, it shares very little code with kilo, because I’ve ported it to c++ and abstracted a lot away to make writing a full featured text editor easier.</p>
+
+<p>I’ve made the decision to only support compile time plugins in c/c++ instead of using an embeddable language such as elisp or lua. There are several reasons for this:
+- Maintaining a plugin interface to another language is time consuming and creates friction between the c++ and the other language due to having to convert types
+- C/C++ is much faster than most embeddable languages both in terms of loading time and execution speed; Oswald should open with no perceptible delay
+- C and C++ are mature languages with a decent stdlib and ecosystem, especially compared to lua or a custom purpose language (like vimscript)</p>
+
+<p>The major downside to this is that it is slower to develop plugins due to compile times and they must be linked into the executable or linked in at runtime.</p>
+
+<p>Most features are designed to be able to be implemented as plugins by inserting themselves into the event pipeline or registering a command which can be bound to a key. A side effect of using the event pipeline this way is that I can do near perfect damage tracking since I have a list of the changes from the event stream. This allows me to output only the parts of the UI that change on screen to the terminal, resulting in less flickering and lower latency, especially on slower SSH connections.</p>
+
+<p>A highlighting pipeline will also be implemented, which allows multiple plugins to serve highlighting info, which is useful for plugins that handle syntax highlighting or provide visual cues such as <a href="https://github.com/justinmk/vim-sneak">vim-sneak</a>.</p>
+
+<h1>semantic highlighting &amp; tree sitter</h1>
+
+<p>The regex based highlighting vim uses leave a lot to be desired. An example of this is how user defined types are not highlighted in C files. Semantic highlighting solves this issue by using a much more capable parser that generates a tree of the syntax to properly highlight the source code.</p>
+
+<p>Oswald currently uses <a href="https://github.com/tree-sitter/tree-sitter">tree-sitter</a> for semantic highlighting (and semantic movements soon) for several reasons:
+- tree-sitter supports many languages
+- It is less complex to use compared to LSP’s semantic highlighting
+- Due to it using a parser that only parses changed text, it has extremely low latency, whereas language servers might use a slower method of handling syntax highlighting</p>
+
+<p>However, it isn’t perfect. Since tree-sitter has a repo for every language it supports, it is a pain to include into a project. I ended up writing a build script to download a list of tree sitter languages and compile everything into a static library, as well as generating headers to expose what languages it supports. It would be nice to have a standardized tree sitter library that functioned similarly, instead of having to come up with some form of packaging yourself.</p>
+
+<p>There are other slight annoyances such as having to use a query language at runtime to get more general token names used for highlighting instead of specific token types like <code>primitive-type</code> or <code>type-identifier</code>. An alternative to this would be compiling tables into the library to avoid having to load files at runtime or store large strings in the executable.</p>
+
+<p>LSP is no longer a priority for me since tree-sitter covers highlighting, folding, and go to definition to some extent, but I do intend to implement it eventually since features like rename symbol greatly speed up refactoring.</p>
+
+<h1>testing tuis</h1>
+
+<p>I wanted to test how my editor displayed in the terminal automatically, so I wrote a utility called <a href="https://github.com/wooosh/tui-puppet">tui-puppet</a> that emulates a xterm-like terminal using libvterm, and controls the terminal with a stream of commands like so:</p>
+<pre style="background-color:#fff">keystream line &lt;space&gt; 1 &lt;enter&gt;
+keystream line &lt;space&gt; 2 &lt;enter&gt;
+keystream line &lt;space&gt; 3 &lt;enter&gt;
+keystream line &lt;space&gt; 4 &lt;enter&gt;
+keystream line &lt;space&gt; 5 &lt;enter&gt;
+hash
+keystream &lt;ctrl-q&gt;
+</pre>
+<p>To compare screen states, you use the <code>hash</code> command, which hashes the screen state and writes that hash to stdout. You can compare these hashes to see if the rendered output is the same after making changes to your tui program.</p>
+
+<h1>du lies to you (kind of)</h1>
+
+<p>While working on my editor, I noticed that my executable sizes were changing without the source changing, ranging from 11mb to 200mb. I spent a day trying to figure out which part of my build system was causing that (could be static linking, gcc bug, LTO, etc), but it turns out the issue was how I was measuring the file:</p>
+<pre style="background-color:#fff">$ du -h oswald-11mb oswald-57mb
+11M oswald-11mb
+57M oswald-57mb
+$ diff oswald-11mb oswald-57mb
+$ # according to diff, they are identical
+</pre>
+<p>As it turns out, <code>du</code> has an “apparent size” flag, which gives me the length of the file instead of how much disk space it is using:</p>
+<pre style="background-color:#fff">$ du -h --apparent-size oswald-11mb oswald-57mb
+11M oswald-11mb
+11M oswald-57mb
+</pre>
+<h1>future status updates</h1>
+
+<p>I plan to do more frequent (weekly/monthly) status updates in the future hopefully.</p>
+
+        </article>
+    </body>
+</html>
