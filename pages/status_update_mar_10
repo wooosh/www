@@ -8,6 +8,7 @@ It’s been quite some time since I’ve last posted here, and I’ve made signi
 Oswald (my editor) is technically a fork of `kilo` (link), which is a simple editor in about 1,000 lines of C code. At this point, it shares very little code with kilo, because I’ve ported it to c++ and abstracted a lot away to make writing a full featured text editor easier.
 
 I’ve made the decision to only support compile time plugins in c/c++ instead of using an embeddable language such as elisp or lua. There are several reasons for this:
+
 - Maintaining a plugin interface to another language is time consuming and creates friction between the c++ and the other language due to having to convert types
 - C/C++ is much faster than most embeddable languages both in terms of loading time and execution speed; Oswald should open with no perceptible delay
 - C and C++ are mature languages with a decent stdlib and ecosystem, especially compared to lua or a custom purpose language (like vimscript)
@@ -22,6 +23,7 @@ A highlighting pipeline will also be implemented, which allows multiple plugins 
 The regex based highlighting vim uses leave a lot to be desired. An example of this is how user defined types are not highlighted in C files. Semantic highlighting solves this issue by using a much more capable parser that generates a tree of the syntax to properly highlight the source code.
 
 Oswald currently uses [tree-sitter](https://github.com/tree-sitter/tree-sitter) for semantic highlighting (and semantic movements soon) for several reasons:
+
 - tree-sitter supports many languages
 - It is less complex to use compared to LSP’s semantic highlighting
 - Due to it using a parser that only parses changed text, it has extremely low latency, whereas language servers might use a slower method of handling syntax highlighting
