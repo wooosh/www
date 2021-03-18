@@ -5,7 +5,7 @@ It’s been quite some time since I’ve last posted here, and I’ve made signi
 
 
 # editor heritage & design
-Oswald (my editor) is technically a fork of `kilo` (link), which is a simple editor in about 1,000 lines of C code. At this point, it shares very little code with kilo, because I’ve ported it to c++ and abstracted a lot away to make writing a full featured text editor easier.
+Oswald (my editor) is technically a fork of [kilo](https://github.com/antirez/kilo), which is a simple editor in about 1,000 lines of C code. At this point, it shares very little code with kilo, because I’ve ported it to c++ and abstracted a lot away to make writing a full featured text editor easier.
 
 I’ve made the decision to only support compile time plugins in c/c++ instead of using an embeddable language such as elisp or lua. There are several reasons for this:
 
