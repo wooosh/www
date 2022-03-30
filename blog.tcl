@@ -47,6 +47,14 @@ foreach f $articleFiles {
   lappend articles $article
 }
 
+# sort articles 
+proc compareArticleDate {a b} {
+  # this works because the date format is ISO8601
+  return [string compare [dict get $a Date] [dict get $b Date]]
+}
+
+set articles [lsort -decreasing -command compareArticleDate $articles]
+
 set fp [open "$OutputDir/index.html" w]
 puts $fp [html-index $articles]
 close $fp

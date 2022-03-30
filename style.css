@@ -94,6 +94,7 @@ details {
   padding: .5em .5em 0;
   border-top: 1px solid var(--accent-color);
   border-bottom: 1px solid var(--accent-color);
+  background-color: var(--bg-code-color);
 }
 
 details[open] summary {
@@ -105,6 +106,7 @@ summary {
   margin: -.5em -.5em 0;
   padding: .5em;
   font-weight: bold;
+  background-color: var(--bg-color);
 }
 
 .articles {
