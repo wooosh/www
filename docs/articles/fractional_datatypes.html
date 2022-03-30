@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> Derivation of Fractional Datatypes </title>
+        <meta name="description" content=" WIP "/>
+        <link rel="stylesheet" href="/style.css" type="text/css" />
+      </head>
+      <body>
+        <main> <a href='https://wooo.sh' class='home'>[https://wooo.sh/]</a>
+      <span class='date'>[2022-03-30]</span>
+      <h1 class='title'>Derivation of Fractional Datatypes</h1>
+
+      <p>WIP</p>
+
+      <div class='tableOfContents'>
+        <strong>Contents:</strong>
+        <ol><li><a href='#heading3'>Rationals</a></li></ol>
+      </div>
+      <h2 id='heading3'><a href='#heading3'>Rationals</a></h2><p>Fractional datatypes are equivalent to the category of <em>rational</em> numbers, that is, any number that can be represented by a pair of integers <code>(P, Q)</code>, which when divided as <code>P/Q</code>, produce the held value.</p>
+<p>There are a variety of ways to represent <code>P</code> and <code>Q</code>, but the most obvious method is simply to store <code>P</code> and <code>Q</code> together:</p>
+<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="k">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">q</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">rational</span><span class="p">;</span>
+</span></span></code></pre><p>This representation is referred to as a  <a href="https://en.wikipedia.org/wiki/Rational_data_type">Rational Data Type</a>.</p>
+<p>Implementing common mathematical operations for rational datatypes is fairly simple, following the same rules one would use on paper to manipulate fractions.</p>
+<p><strong>Addition &amp; Subtraction</strong></p>
+<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="n">add</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span><span class="nl">p</span><span class="p">:</span> <span class="p">(</span><span class="n">A</span><span class="p">.</span><span class="n">p</span> <span class="o">*</span> <span class="n">B</span><span class="p">.</span><span class="n">q</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">p</span> <span class="o">*</span> <span class="n">A</span><span class="p">.</span><span class="n">q</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">       <span class="nl">q</span><span class="p">:</span> <span class="n">A</span><span class="p">.</span><span class="n">q</span> <span class="o">*</span> <span class="n">B</span><span class="p">.</span><span class="n">q</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sub</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span><span class="nl">p</span><span class="p">:</span> <span class="p">(</span><span class="n">A</span><span class="p">.</span><span class="n">p</span> <span class="o">*</span> <span class="n">B</span><span class="p">.</span><span class="n">q</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">p</span> <span class="o">*</span> <span class="n">A</span><span class="p">.</span><span class="n">q</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nl">q</span><span class="p">:</span> <span class="n">A</span><span class="p">.</span><span class="n">q</span> <span class="o">*</span> <span class="n">B</span><span class="p">.</span><span class="n">q</span><span class="p">}</span>
+</span></span></code></pre><img src='/articles/fractional_datatypes_latex0.svg'><img src='/articles/fractional_datatypes_latex1.svg'> </main>
+      </body>
+    </html>

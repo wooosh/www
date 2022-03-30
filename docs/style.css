@@ -1,0 +1,317 @@
+:root {
+  --bg-color: #faf9f6;
+  --bg-code-color: #f5f5f5;
+  --text-color: #222;
+  --strong-color: #004203;
+  --light-color: #777;
+  --accent-color: #519654;
+  --light-line: lightgray;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Helvetica, sans-serif;
+}
+
+main {
+  max-width: 50em;
+  margin: auto;
+  padding: 0.5em;
+}
+
+h1, h2, h3, h4, h5, strong, a, summary {
+  color: var(--strong-color);
+}
+
+h1 a:not(:hover),
+h2 a:not(:hover),
+h3 a:not(:hover),
+h4 a:not(:hover),
+h5 a:not(:hover) {
+  text-decoration: none;
+}
+
+.tableOfContents a {
+  color: var(--text-color);
+}
+
+h2, .hline {
+  border-bottom: 1px solid var(--light-line);
+}
+
+h2::before {
+  counter-increment: section;
+  content: "0"counter(section) ". ";
+}
+
+.home, .date {
+  color: var(--light-color);
+  font-family: Courier, monospace;
+}
+
+.date {
+  float: right;
+}
+
+.title {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+pre, code {
+  font-family: Courier, monospace;
+  background-color: var(--bg-code-color);
+}
+
+pre {
+  border: 1px solid var(--accent-color);
+  border-left-width: 4px;
+  padding: 0.5em;
+  overflow-x: auto;
+}
+
+ol {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  list-style: decimal-leading-zero;
+}
+
+img {
+  display: block;
+  margin: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  max-width: 100%;
+}
+
+details {
+  padding: .5em .5em 0;
+  border-top: 1px solid var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--accent-color);
+  margin-bottom: .5em;
+}
+
+summary {
+  margin: -.5em -.5em 0;
+  padding: .5em;
+  font-weight: bold;
+}
+
+.articles {
+  width: 100%;
+}
+
+.articledate {
+  font-family: Courier, monospace;
+  margin-right: 0.5em;
+}
+
+
+/* SYNTAX HIGHLIGHTING */
+.bg {
+  background-color: var(--bg-code-color);
+}
+
+.chroma {
+  background-color: var(--bg-code-color);
+}
+
+.chroma .err {}
+
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.chroma .hl {
+  background-color: #e5e5e5
+}
+
+.chroma .lnt {
+  white-space: pre;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: #7f7f7f
+}
+
+.chroma .ln {
+  white-space: pre;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: #7f7f7f
+}
+
+.chroma .line {
+  display: flex;
+}
+
+.chroma .k {
+  font-weight: bold
+}
+
+.chroma .kc {
+  font-weight: bold
+}
+
+.chroma .kd {
+  font-weight: bold
+}
+
+.chroma .kn {
+  font-weight: bold
+}
+
+.chroma .kp {}
+
+.chroma .kr {
+  font-weight: bold
+}
+
+.chroma .kt {}
+
+.chroma .nc {
+  font-weight: bold
+}
+
+.chroma .ni {
+  font-weight: bold
+}
+
+.chroma .ne {
+  font-weight: bold
+}
+
+.chroma .nn {
+  font-weight: bold
+}
+
+.chroma .nt {
+  font-weight: bold
+}
+
+.chroma .s {
+  font-style: italic
+}
+
+.chroma .sa {
+  font-style: italic
+}
+
+.chroma .sb {
+  font-style: italic
+}
+
+.chroma .sc {
+  font-style: italic
+}
+
+.chroma .dl {
+  font-style: italic
+}
+
+.chroma .sd {
+  font-style: italic
+}
+
+.chroma .s2 {
+  font-style: italic
+}
+
+.chroma .se {
+  font-weight: bold;
+  font-style: italic
+}
+
+.chroma .sh {
+  font-style: italic
+}
+
+.chroma .si {
+  font-weight: bold;
+  font-style: italic
+}
+
+.chroma .sx {
+  font-style: italic
+}
+
+.chroma .sr {
+  font-style: italic
+}
+
+.chroma .s1 {
+  font-style: italic
+}
+
+.chroma .ss {
+  font-style: italic
+}
+
+.chroma .ow {
+  font-weight: bold
+}
+
+.chroma .c {
+  font-style: italic
+}
+
+.chroma .ch {
+  font-style: italic
+}
+
+.chroma .cm {
+  font-style: italic
+}
+
+.chroma .c1 {
+  font-style: italic
+}
+
+.chroma .cs {
+  font-style: italic
+}
+
+.chroma .cp {}
+
+.chroma .cpf {}
+
+.chroma .ge {
+  font-style: italic
+}
+
+.chroma .gh {
+  font-weight: bold
+}
+
+.chroma .gp {
+  font-weight: bold
+}
+
+.chroma .gs {
+  font-weight: bold
+}
+
+.chroma .gu {
+  font-weight: bold
+}

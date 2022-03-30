@@ -1,4 +1,0 @@
-rm docs/*.html
-./blog
-cp html/* docs
-cp -r images docs
