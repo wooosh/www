@@ -3,14 +3,27 @@ set Date 2022-04-04
 set Description "Algebraically deriving implementations and properties of various fractional datatypes."
 
 set Contents {
+  section Introduction {
+    txt {
+      While working with fractional datatypes, I've felt I never had a good intuition for how arithmetic operations worked under the hood. While I knew the basics of how rationals, fixed point, and floating point were represented in memory, I did not understand how, for example, a multiplication would affect the precision of a floating point value.
+
+      Doing more research into the topic, I've realized that each fractional datatype is just a different representation of `P/Q`, where `P` and `Q` are integers.
+
+      Each represesentation implies different constraints, which can be taken advantage of in order to allow simpler and faster arithmetic operations.
+    }
+
+    note {
+      The structure definitions of each fractional type in this post are used for demonstration purposes, and are not intended to be an efficient use of memory.
+      The memory layout of fractional datatypes usually have much more care put into them for efficiency.
+    }
+  }
+
   section Rationals {
     txt {
-      All fractional datatypes are equivalent to a pair of integers `P` and `Q`, which represent a value `P/Q`.
-
-      The differences between each datatype comes down to its representation and invariants over `P` and `Q`.
-      
-      The most obvious method is simply to store `P` and `Q` together:
+      The most obvious (and least constrained) method of representing a fraction is simply to store `P` and `Q` together:
     }
+
+
 
     code c {
       struct rational {
