@@ -15,6 +15,7 @@ file mkdir "$OutputDir/$ArticlesPath"
 
 file copy style.css "$OutputDir/style.css"
 file copy CNAME "$OutputDir/CNAME"
+file copy icon.png "$OutputDir/icon.png"
 
 cd $BuildDir
 
@@ -41,7 +42,7 @@ foreach f $articleFiles {
   set article [dict merge [markup::render [dict get $article Contents]] $article]
 
   set fp [open "$OutputDir/$articlePath" w]
-  puts $fp [html-article $article]
+  puts $fp [html-article pages/$ArticlesPath/[file tail $f] $article]
   close $fp
 
   lappend articles $article
@@ -59,3 +60,35 @@ set fp [open "$OutputDir/index.html" w]
 puts $fp [html-index $articles]
 close $fp
 
+# write rss feed
+set fp [open "$OutputDir/feed.rss" w]
+
+puts $fp {<?xml version="1.0"?>
+  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+      <title>wooo.sh</title>
+      <link>https://wooo.sh</link>
+      <description>wooosh's homepage and blog</description>
+      <atom:link href="http://wooo.sh/feed.rss" rel="self" type="application/rss+xml" />
+}
+
+foreach article $articles {
+  dict with article {
+    append item {
+      <item>
+        <title>} $Title {</title>
+        <pubDate>} [clock format [clock scan $Date] -format "%a, %d %b %Y 00:00:00 EST"] {</pubDate>
+        <guid>https://wooo.sh/} $Path {</guid>
+        <link>https://wooo.sh/} $Path {</link>
+        <description>} $Description {</description>
+      </item>
+    }
+
+    puts $fp $item
+  }
+}
+
+puts $fp {
+    </channel>
+  </rss>
+}

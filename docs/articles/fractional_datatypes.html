@@ -3,17 +3,24 @@
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/icon.png">
         <title> Derivation of Fractional Datatypes </title>
         <meta name="description" content=" Algebraically deriving implementations and properties of various fractional datatypes. "/>
         <link rel="stylesheet" href="/style.css" type="text/css" />
+        <link rel="alternate" type="application/rss+xml" href="/feed.rss" title="wooo.sh RSS">
       </head>
       <body>
-        <main> <a href='https://wooo.sh' class='home'>[https://wooo.sh/]</a>
-      <span class='date'>[2022-04-04]</span>
+        <main> <header>
+        <a href='https://wooo.sh'>[https://wooo.sh/]</a>
+        <a type='application/rss+xml' href='/feed.rss'>[rss]</a>
+        
+        <span>[2022-04-04]</span>
+      </header>
       <h1 class='title'>Derivation of Fractional Datatypes</h1>
 
       <p>Algebraically deriving implementations and properties of various fractional datatypes.</p>
 
+      <p><a href='https://github.com/wooosh/blog/blob/master/pages/articles/fractional_datatypes.page.tcl'>Article Source Code</a></p>
       <div class='tableOfContents'>
         <strong>Contents:</strong>
         <ol><li><a href='#heading1'>Rationals</a><ol><li><a href='#heading2'>Addition & Subtraction</a></li><li><a href='#heading3'>Multiplication & Division</a></li><li><a href='#heading4'>Issues</a></li></li></ol><li><a href='#heading5'>Fixed-Q Rationals</a><ol><li><a href='#heading6'>Addition (subtraction omitted for brevity)</a></li><li><a href='#heading7'>Multiplication</a></li><li><a href='#heading8'>Division</a></li><li><a href='#heading9'>Mixing Fixed-Q Rationals with Different Q Values</a></li></li></ol><li><a href='#heading10'>'Point' Types</a><ol><li><a href='#heading11'>Addition (subtraction omitted for brevity)</a></li><li><a href='#heading12'>Multiplication</a></li><li><a href='#heading13'>Division</a></li></li></ol><li><a href='#heading14'>Conclusion</a></li></ol>
@@ -207,7 +214,7 @@ div(A, B) = {p: A.p / B.p
 <li>Applications that need 100% deterministic fractional math</li>
 <li>Greater data density by using 8 or 16 bit wide types, compared to the smallest commonly available floating point type, which is 32 bits</li>
 </ul>
-<p>Additionally, there are arbitrary precision fractional datatypes, which are capable of representing a number at any precision that fits in memory. These require much more care to implement, and are almost always used through a library such as <a href="https://github.com/boostorg/multiprecision">Boost Multiprecision</a> or <a href="https://gmplib.org/">GMP (GNU Muliple Precision)</a>.</p>
+<p>Additionally, there are arbitrary precision fractional datatypes, which are capable of representing a number at any precision that fits in memory. These require much more care to implement, and are almost always used through a library such as <a href="https://github.com/boostorg/multiprecision">Boost Multiprecision</a> or <a href="https://gmplib.org/">GMP (GNU Multiple Precision)</a>.</p>
 
 
       <noscript>

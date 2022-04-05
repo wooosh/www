@@ -69,14 +69,23 @@ h3::after {
   content: "["counter(h2section)"."counter(h3section)"]";
 }
 
-.home, .date {
+header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+header *:last-child {
+  flex: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+
+header a, header span, .rss {
   color: var(--light-color);
   font-family: Courier, monospace;
 }
 
-.date {
-  float: right;
-}
 
 .title {
   margin-top: 0.25em;
@@ -109,6 +118,10 @@ pre {
 
 ol, ul {
   margin-top: 0;
+}
+
+li::marker {
+  font-family: Courier, monospace;
 }
 
 .label {

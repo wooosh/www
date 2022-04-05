@@ -16,9 +16,11 @@ proc html-doc {title desc contents} {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/icon.png">
         <title>} $title {</title>
         <meta name="description" content="} $desc {"/>
         <link rel="stylesheet" href="/style.css" type="text/css" />
+        <link rel="alternate" type="application/rss+xml" href="/feed.rss" title="wooo.sh RSS">
       </head>
       <body>
         <main>
@@ -50,7 +52,7 @@ proc html-index articles {
     }
   }]
 
-  append html "<strong>Writing:</strong>"
+  append html {<strong>Writing:</strong> <a type='application/rss+xml' href='/feed.rss'>(RSS Feed)</a>}
   foreach article $articles {
     dict with article {
       append html {
@@ -75,15 +77,20 @@ proc html-index articles {
   return [html-doc "wooo.sh" "Home Page" $html]
 }
 
-proc html-article article {
+proc html-article {filePath article} {
   dict with article {
     append html {
-      <a href='https://wooo.sh' class='home'>[https://wooo.sh/]</a>
-      <span class='date'>[} [html-escape $Date] {]</span>
+      <header>
+        <a href='https://wooo.sh'>[https://wooo.sh/]</a>
+        <a type='application/rss+xml' href='/feed.rss'>[rss]</a>
+        
+        <span>[} [html-escape $Date] {]</span>
+      </header>
       <h1 class='title'>} [html-escape $Title] {</h1>
 
       <p>} $Description {</p>
 
+      <p><a href='https://github.com/wooosh/blog/blob/master/} $filePath {'>Article Source Code</a></p>
       <div class='tableOfContents'>
         <strong>Contents:</strong>
         } $TableOfContents {

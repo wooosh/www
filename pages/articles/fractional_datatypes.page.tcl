@@ -45,7 +45,7 @@ set Contents {
       }
     }
 
-      section "Issues" {
+    section "Issues" {
       txt {
         However, there are a couple of practical issues with this representation:
 
@@ -332,7 +332,7 @@ set Contents {
       * Applications that need 100% deterministic fractional math
       * Greater data density by using 8 or 16 bit wide types, compared to the smallest commonly available floating point type, which is 32 bits
 
-      Additionally, there are arbitrary precision fractional datatypes, which are capable of representing a number at any precision that fits in memory. These require much more care to implement, and are almost always used through a library such as [Boost Multiprecision](https://github.com/boostorg/multiprecision) or [GMP (GNU Muliple Precision)](https://gmplib.org/).
+      Additionally, there are arbitrary precision fractional datatypes, which are capable of representing a number at any precision that fits in memory. These require much more care to implement, and are almost always used through a library such as [Boost Multiprecision](https://github.com/boostorg/multiprecision) or [GMP (GNU Multiple Precision)](https://gmplib.org/).
     }
   }
 }
