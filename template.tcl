@@ -81,7 +81,7 @@ proc html-article {filePath article} {
   dict with article {
     append html {
       <header>
-        [<a href='https://wooo.sh'>https://wooo.sh/</a>]
+        [<a href='/'>https://wooo.sh/</a>]
         [<a type='application/rss+xml' href='/feed.rss'>rss</a>]
         
         <span>[} [html-escape $Date] {]</span>

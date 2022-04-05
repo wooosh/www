@@ -52,6 +52,10 @@ a:hover {
   background-color: var(--bg-highlight);
 }
 
+a[href^="http"]::before {
+  content: ' ⧉ ';
+}
+
 h1 a:not(:hover),
 h2 a:not(:hover),
 h3 a:not(:hover),
