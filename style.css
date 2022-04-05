@@ -105,6 +105,12 @@ pre, code {
   background-color: var(--bg-code-color);
 }
 
+li a {
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  display: inline-block;
+}
+
 pre {
   border: 1px solid var(--accent-color);
   border-left-width: 4px;

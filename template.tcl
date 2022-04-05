@@ -12,7 +12,7 @@ proc html-markup {contents} {
 proc html-doc {title desc contents} {
   return [concat {
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
