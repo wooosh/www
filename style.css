@@ -1,6 +1,6 @@
 :root {
   --bg-color: #faf9f6;
-  --bg-code-color: rgb(230, 236, 236);
+  --bg-code-color: #e6ecec;
   --bg-highlight: hsl(45, 29%, 90%);
 
   --text-color: #222;
@@ -9,7 +9,21 @@
 
   --light-line: lightgray;
   --accent-color: #519654;
+}
 
+@media(prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #141414;
+    --bg-code-color: #212424;
+    --bg-highlight: #2d2d3e;
+  
+    --text-color: #fafafa;
+    --text-strong-color: #519654;
+    --text-light-color: #888;
+  
+    --light-line: #888;
+    --accent-color: #004203;
+  }
 }
 
 html {
@@ -61,6 +75,12 @@ h2::after, h3::after {
   font-weight: normal;
   font-size: 0.9rem;
   float: right;
+
+  /* stupid hack to align to the bottom */
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 1.5em;
 }
 
 h2 {
@@ -93,7 +113,6 @@ header, header a, header span {
   color: var(--text-light-color);
   font-family: Courier, monospace;
 }
-
 
 .title {
   margin-top: 0.25em;
