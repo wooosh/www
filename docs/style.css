@@ -1,11 +1,15 @@
 :root {
   --bg-color: #faf9f6;
-  --bg-code-color: #f5f5f5;
+  --bg-code-color: hsl(45, 29%, 95%);
+  --bg-highlight: hsl(45, 29%, 90%);
+
   --text-color: #222;
-  --strong-color: #004203;
-  --light-color: #777;
-  --accent-color: #519654;
+  --text-strong-color: #004203;
+  --text-light-color: #777;
+
   --light-line: lightgray;
+  --accent-color: #519654;
+
 }
 
 html {
@@ -27,7 +31,11 @@ main {
 }
 
 h1, h2, h3, h4, h5, strong, a, summary {
-  color: var(--strong-color);
+  color: var(--text-strong-color);
+}
+
+a:hover {
+  background-color: var(--bg-highlight);
 }
 
 h1 a:not(:hover),
@@ -48,7 +56,7 @@ h2, .hline {
 
 
 h2::after, h3::after {
-  color: var(--light-color);
+  color: var(--text-light-color);
   font-family: Courier, monospace;
   font-weight: normal;
   font-size: 0.9rem;
@@ -82,7 +90,7 @@ header *:last-child {
 
 
 header, header a, header span {
-  color: var(--light-color);
+  color: var(--text-light-color);
   font-family: Courier, monospace;
 }
 
@@ -133,13 +141,13 @@ li::marker {
   border: 1px solid var(--accent-color);
   border-left-width: 4px;
   padding: 0.5em;
-
+  background-color: var(--bg-code-color);
 }
 
 .note::before {
   content: 'Note';
   display: block;
-  color: var(--strong-color);
+  color: var(--text-strong-color);
   font-weight: bold;
 }
 
