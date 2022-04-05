@@ -1,6 +1,10 @@
 source markup.tcl
 source template.tcl
 
+proc minify filepath {
+  exec minify -o $filepath $filepath
+}
+
 # online path for articles
 set ArticlesPath "articles"
 
@@ -13,9 +17,10 @@ file delete -force -- $BuildDir $OutputDir
 file mkdir $BuildDir $OutputDir
 file mkdir "$OutputDir/$ArticlesPath"
 
-file copy style.css "$OutputDir/style.css"
 file copy CNAME "$OutputDir/CNAME"
 file copy icon.png "$OutputDir/icon.png"
+file copy style.css "$OutputDir/style.css"
+minify "$OutputDir/style.css"
 
 cd $BuildDir
 
@@ -44,6 +49,7 @@ foreach f $articleFiles {
   set fp [open "$OutputDir/$articlePath" w]
   puts $fp [html-article pages/$ArticlesPath/[file tail $f] $article]
   close $fp
+  minify "$OutputDir/$articlePath"
 
   lappend articles $article
 }
@@ -59,6 +65,7 @@ set articles [lsort -decreasing -command compareArticleDate $articles]
 set fp [open "$OutputDir/index.html" w]
 puts $fp [html-index $articles]
 close $fp
+minify "$OutputDir/index.html"
 
 # write rss feed
 set fp [open "$OutputDir/feed.rss" w]
@@ -92,3 +99,6 @@ puts $fp {
     </channel>
   </rss>
 }
+
+close $fp
+exec minify --type xml -o "$OutputDir/feed.rss" "$OutputDir/feed.rss"
