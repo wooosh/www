@@ -1,6 +1,6 @@
 :root {
   --bg-color: #faf9f6;
-  --bg-code-color: hsl(45, 29%, 95%);
+  --bg-code-color: rgb(230, 236, 236);
   --bg-highlight: hsl(45, 29%, 90%);
 
   --text-color: #222;
