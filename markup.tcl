@@ -105,6 +105,21 @@ namespace eval markup {
     append Body [with-cmd "chroma --html --html-only --lexer=$lang" [trim-indentation $contents]]
   }
 
+  proc label {contents} {
+    variable Body
+    append Body "<strong class='label'>" $contents "</strong>"
+  }
+
+  proc pre {contents} {
+    variable Body
+    append Body "<pre>" [trim-indentation $contents] "</pre>"
+  }
+
+  proc note {contents} {
+    variable Body
+    append Body "<div class='note'>" [trim-indentation $contents] "</div>"
+  }
+
   proc latex contents {
     variable Body
     variable LatexId

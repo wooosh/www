@@ -20,6 +20,7 @@ body {
 }
 
 main {
+  counter-reset: h2section;
   max-width: 50em;
   margin: auto;
   padding: 0.5em;
@@ -45,9 +46,27 @@ h2, .hline {
   border-bottom: 1px solid var(--light-line);
 }
 
-h2::before {
-  counter-increment: section;
-  content: "0"counter(section) ". ";
+
+h2::after, h3::after {
+  color: var(--light-color);
+  font-family: Courier, monospace;
+  font-weight: normal;
+  font-size: 0.9rem;
+  float: right;
+}
+
+h2 {
+  counter-reset: h3section;
+}
+
+h2::after {
+  counter-increment: h2section;
+  content: "["counter(h2section)"."counter(h3section)"]";
+}
+
+h3::after {
+  counter-increment: h3section;
+  content: "["counter(h2section)"."counter(h3section)"]";
 }
 
 .home, .date {
@@ -74,12 +93,41 @@ pre {
   border-left-width: 4px;
   padding: 0.5em;
   overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
-ol {
+.tableOfContents ol {
   margin-top: 0.25em;
   margin-bottom: 0.25em;
   list-style: decimal-leading-zero;
+}
+
+.tableOfContents ol ol {
+  list-style: lower-roman;
+}
+
+ol, ul {
+  margin-top: 0;
+}
+
+.label {
+  margin-top: 1em;
+  display: block;
+}
+
+.note {
+  border: 1px solid var(--accent-color);
+  border-left-width: 4px;
+  padding: 0.5em;
+
+}
+
+.note::before {
+  content: 'Note';
+  display: block;
+  color: var(--strong-color);
+  font-weight: bold;
 }
 
 img {
@@ -191,6 +239,10 @@ summary {
 }
 
 .chroma .kt {}
+
+.chroma .kt {
+  font-weight: bold;
+}
 
 .chroma .nc {
   font-weight: bold

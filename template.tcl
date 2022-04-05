@@ -4,13 +4,17 @@ proc html-escape input {
   return [string map $entities $input]
 }
 
-#"
+# version of markup::render that only returns the body
+proc html-markup {contents} {
+  return [dict get [markup::render $contents] Body]
+}
 
 proc html-doc {title desc contents} {
   return [concat {
     <!DOCTYPE html>
     <html>
       <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>} $title {</title>
         <meta name="description" content="} $desc {"/>
@@ -26,27 +30,27 @@ proc html-doc {title desc contents} {
 }
 
 proc html-index articles {
-  append html {
-    <h1 class='hline'>wooo.sh</h1>
-    <p>Student, 17.</p>
+  append html {<h1 class='hline'>wooo.sh</h1>}
+  append html [html-markup {
+    txt {
+      Student, 17.
 
-    <p>You can find me on <a href="https://github.com/wooosh">github</a>.</p>
+      You can find me on [github](https://github.com/wooosh).
+    }
 
-    <strong>Topics of interest:</strong>
-    <ul>
-      <li>C/C++</li>
-      <li>Software Optimization<ul>
-        <li>Vectorization</li>
-        <li>Branchless Programming</li>
-        <li>Bitwise Manipulation</li>
-      </ul></li>
-      <li>Computing History</h1>
-      <li>Numerical Methods</li>
-    </ul>
+    label "Topics of Interest:"
+    txt {
+      * C/C++
+      * Software Optimization
+        * Vectorization
+        * Branchless Programming
+        * Bitwise Manipulation
+      * Computing History
+      * Numerical Methods
+    }
+  }]
 
-    <strong>Articles</strong>
-  }
-
+  append html "<strong>Writing:</strong>"
   foreach article $articles {
     dict with article {
       append html {
@@ -58,6 +62,15 @@ proc html-index articles {
     }
   }
 
+  append html [html-markup {
+    label "Blogs I Follow:"
+    txt {
+      * [cbloom](http://cbloomrants.blogspot.com/)
+      * [ryg](https://fgiesen.wordpress.com/)
+      * [Sean Barrett](https://nothings.org/)
+      * [Wojciech Muła](http://0x80.pl/)
+    }
+  }]
 
   return [html-doc "wooo.sh" "Home Page" $html]
 }
