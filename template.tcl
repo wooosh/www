@@ -89,6 +89,21 @@ proc html-article article {
         } $TableOfContents {
       </div>
       } $Body {
+
+      <noscript>
+        <div class='note'>
+        Unfortunately, inline comments are provided using utteranc.es, which requires JavaScript to function.
+        <br>
+        You can either view and leave comments on <a href='https://github.com/wooosh/blog/issues'>github</a>, or enable client-side JavaScript for this website.
+        </div>
+      </noscript>
+      <script src="https://utteranc.es/client.js"
+        repo="wooosh/blog"
+        issue-term="title"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+      </script>
     }
 
     return [html-doc $Title $Description $html]
