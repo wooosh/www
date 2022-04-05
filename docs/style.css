@@ -81,7 +81,7 @@ header *:last-child {
 }
 
 
-header a, header span, .rss {
+header, header a, header span {
   color: var(--light-color);
   font-family: Courier, monospace;
 }

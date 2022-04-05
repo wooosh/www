@@ -13,10 +13,10 @@ set Contents {
     }
 
     code c {
-      struct {
+      struct rational {
         int p;
         int q;
-      } rational;
+      };
     }
 
     txt {

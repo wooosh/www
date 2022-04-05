@@ -11,8 +11,8 @@
       </head>
       <body>
         <main> <header>
-        <a href='https://wooo.sh'>[https://wooo.sh/]</a>
-        <a type='application/rss+xml' href='/feed.rss'>[rss]</a>
+        [<a href='https://wooo.sh'>https://wooo.sh/</a>]
+        [<a type='application/rss+xml' href='/feed.rss'>rss</a>]
         
         <span>[2022-04-04]</span>
       </header>
@@ -28,10 +28,10 @@
       <h2 id='heading1'><a href='#heading1'>Rationals</a></h2><p>All fractional datatypes are equivalent to a pair of integers <code>P</code> and <code>Q</code>, which represent a value <code>P/Q</code>.</p>
 <p>The differences between each datatype comes down to its representation and invariants over <code>P</code> and <code>Q</code>.</p>
 <p>The most obvious method is simply to store <code>P</code> and <code>Q</code> together:</p>
-<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="k">struct</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">rational</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">p</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">q</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">rational</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre><p>This representation is referred to as a  <a href="https://en.wikipedia.org/wiki/Rational_data_type">Rational Data Type</a>.</p>
 <p>Implementing arithmetic operations for rational datatypes is fairly simple, using the same techniques one would use manually for fractions:</p>
 <h3 id='heading2'><a href='#heading2'>Addition & Subtraction</a></h3><pre>add(A, B) = {p: (A.p * B.q) + (B.p * A.q),
