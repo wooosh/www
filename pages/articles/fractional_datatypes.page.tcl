@@ -1,6 +1,6 @@
 set Title "Derivation of Fractional Datatypes"
 set Date 2022-04-04
-set Description "Algebraically deriving implementations and properties of various fractional datatypes."
+set Description "Algebraically deriving arithmetic operations and properties of various fractional datatypes."
 
 set Contents {
   section Introduction {
