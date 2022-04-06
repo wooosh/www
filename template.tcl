@@ -37,7 +37,7 @@ proc html-index articles {
     txt {
       Student, 17.
 
-      You can find me on [github](https://github.com/wooosh).
+      You can find me on [GitHub](https://github.com/wooosh).
     }
 
     label "Topics of Interest:"
@@ -101,7 +101,7 @@ proc html-article {filePath article} {
         <div class='note'>
         Unfortunately, inline comments are provided using utteranc.es, which requires JavaScript to function.
         <br>
-        You can either view and leave comments on <a href='https://github.com/wooosh/blog/issues'>github</a>, or enable client-side JavaScript for this website.
+        You can either view and leave comments on <a href='https://github.com/wooosh/blog/issues'>GitHub</a>, or enable client-side JavaScript for this website.
         </div>
       </noscript>
       <script src="https://utteranc.es/client.js"

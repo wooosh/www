@@ -41,8 +41,10 @@ foreach f $articleFiles {
 
   set article [dict create Title "Untitled" Date "Unknown"\
                            Path $articlePath Description {}\
-                           Contents "Empty Page" ]
+                           Contents "txt {Empty Page}" Draft 0]
   dict with article $src
+
+  if {[dict get $article Draft]} continue
 
   set article [dict merge [markup::render [dict get $article Contents]] $article]
 
@@ -102,3 +104,5 @@ puts $fp {
 
 close $fp
 exec minify --type xml -o "$OutputDir/feed.rss" "$OutputDir/feed.rss"
+
+puts "Built successfully"

@@ -200,6 +200,18 @@ details[open] summary {
   margin-bottom: .5em;
 }
 
+summary::after{
+  content: " [click to expand]";
+  color: var(--text-light-color);
+  font-weight: normal;
+}
+
+details[open] summary::after{
+  content: " [click to collapse]";
+  color: var(--text-light-color);
+  font-weight: normal;
+}
+
 summary {
   margin: -.5em -.5em 0;
   padding: .5em;
