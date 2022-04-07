@@ -53,7 +53,7 @@ a:hover {
 }
 
 a[href^="http"]::before {
-  content: ' ⧉ ';
+  content: '⧉ ';
 }
 
 figure {

@@ -27,7 +27,7 @@ proc html-doc {title desc contents} {
           } $contents {
 
           <footer>
-            wooo.sh is powered by Tcl - <a href='https://github.com/wooosh/blog'>Site Generator Source</a>
+            wooo.sh is powered by Tcl <br> [<a href='https://github.com/wooosh/blog'>Site Generator Source</a>]
           </footer>
         </main>
 
