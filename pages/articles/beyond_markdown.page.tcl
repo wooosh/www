@@ -3,7 +3,7 @@ set Date 2022-04-07
 set Description "What works well about markdown, what does not, and how to move forward, from the perspective of a personal blog."
 
 set Contents {
-  section "Good & Bad Parts of Markdown" {
+  section "Markdown is a Near Universal Format" {
     txt {
       Markdown gets a lot right as a [self-described "text to HTML tool"](https://daringfireball.net/projects/markdown/):
 
