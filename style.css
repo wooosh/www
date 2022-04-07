@@ -229,6 +229,16 @@ summary {
 }
 
 
+footer, footer a {
+  text-align: center;
+  color: var(--text-light-color);
+  font-family: Courier, monospace;
+}
+
+footer {
+  padding-bottom: 1em;
+}
+
 /* SYNTAX HIGHLIGHTING */
 .bg {
   background-color: var(--bg-code-color);

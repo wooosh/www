@@ -23,8 +23,6 @@ set Contents {
       The most obvious (and least constrained) method of representing a fraction is simply to store `P` and `Q` together:
     }
 
-
-
     code c {
       struct rational {
         int p;

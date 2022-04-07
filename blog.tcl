@@ -1,3 +1,5 @@
+# TODO: handle special chars in RSS feeds + titles and descriptions
+
 source markup.tcl
 source template.tcl
 

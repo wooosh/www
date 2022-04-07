@@ -25,7 +25,12 @@ proc html-doc {title desc contents} {
       <body>
         <main>
           } $contents {
+
+          <footer>
+            wooo.sh is powered by Tcl - <a href='https://github.com/wooosh/blog'>Site Generator Source</a>
+          </footer>
         </main>
+
       </body>
     </html>
   }]
