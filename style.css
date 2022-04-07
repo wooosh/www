@@ -56,6 +56,22 @@ a[href^="http"]::before {
   content: ' ⧉ ';
 }
 
+figure {
+  width: fit-content;
+  margin: auto;
+}
+
+figure img {
+  margin: 0;
+  border: 2px solid var(--light-line);
+}
+
+figcaption {
+  text-align: center;
+  color: var(--text-light-color);
+  padding: 0.5em;
+}
+
 h1 a:not(:hover),
 h2 a:not(:hover),
 h3 a:not(:hover),

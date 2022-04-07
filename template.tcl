@@ -75,6 +75,7 @@ proc html-index articles {
       * [cbloom](http://cbloomrants.blogspot.com/)
       * [ryg](https://fgiesen.wordpress.com/)
       * [Sean Barrett](https://nothings.org/)
+      * [tedu](https://flak.tedunangst.com/)
       * [Wojciech Muła](http://0x80.pl/)
     }
   }]

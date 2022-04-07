@@ -92,7 +92,7 @@ namespace eval markup {
     variable Body
     append Body {
       <details>
-        <summary>} $summary {</summary>
+        <summary>} [html-escape $summary] {</summary>
     }
 
     uplevel $contents
@@ -118,6 +118,17 @@ namespace eval markup {
   proc note {contents} {
     variable Body
     append Body "<div class='note'>" [trim-indentation $contents] "</div>"
+  }
+
+  proc figure {caption url} {
+    variable Body
+    set caption [html-escape $caption]
+    append Body {
+      <figure>
+        <img src='} $url {' alt='} $caption {' />
+        <figcaption>} $caption {</figcaption>
+      </figure>
+    }
   }
 
   proc latex contents {
