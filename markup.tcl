@@ -137,6 +137,24 @@ namespace eval markup {
 
     append src {
       \documentclass{article}
+      } $contents {
+    }
+
+    puts $src
+    exec latex << $src
+    exec dvisvgm --no-fonts -c 1.5 texput.dvi 2>/dev/null
+
+    global OutputDir
+    global AssetPrefix
+    exec mv texput.svg "$OutputDir/${AssetPrefix}_latex$LatexId.svg"
+    #exec dvipng -T tight -bg Transparent -otexput.png texput.dvi
+
+    append Body "<img class='invert-on-dark' src='/${AssetPrefix}_latex$LatexId.svg'>"
+    incr LatexId
+  }
+
+  proc latex-math contents {
+    append src {
       \usepackage{amsmath}
       \usepackage{amssymb}
       \usepackage{amsfonts}
@@ -149,15 +167,21 @@ namespace eval markup {
       \end{document}
     }
 
-    exec latex << $src
-    exec dvisvgm --no-fonts -c 1.5 texput.dvi 2>/dev/null
+    latex $src
+  }
 
-    global OutputDir
-    global AssetPrefix
-    exec mv texput.svg "$OutputDir/${AssetPrefix}_latex$LatexId.svg"
-    #exec dvipng -T tight -bg Transparent -otexput.png texput.dvi
+  proc circuitikz contents {
+    append src {
+      \usepackage{circuitikz}
 
-    append Body "<img src='/${AssetPrefix}_latex$LatexId.svg'>"
-    incr LatexId
+      \thispagestyle{empty}
+      \begin{document}
+      \begin{circuitikz} \draw
+      } [trim-indentation $contents] {
+      \end{circuitikz}
+      \end{document}
+    }
+
+    latex $src
   }
 }

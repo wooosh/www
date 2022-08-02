@@ -24,6 +24,10 @@
     --light-line: #888;
     --accent-color: #004203;
   }
+
+  .invert-on-dark {
+    filter: invert();
+  }
 }
 
 html {
@@ -106,6 +110,8 @@ h2::after, h3::after {
 h2 {
   counter-reset: h3section;
 }
+
+
 
 h2::after {
   counter-increment: h2section;
@@ -233,6 +239,14 @@ summary {
   padding: .5em;
   font-weight: bold;
   background-color: var(--bg-color);
+}
+
+li, p {
+  line-height: 1.5;
+}
+
+li {
+  margin-bottom: 0.5em;
 }
 
 .articles {
