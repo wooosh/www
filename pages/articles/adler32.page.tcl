@@ -5,7 +5,7 @@ set Description "Using algebraic manipulation with loop unrolling to create a fa
 set Contents {
   section "Introduction" {
     txt {
-      While looking through the [fpng source code](https://github.com/richgel999/fpng), I noticed that its [vectorized adler32 implementation](https://github.com/richgel999/fpng/blob/6926f5a0a78f22d42b074a0ab8032e07736babd4/src/fpng.cpp#L407) seemed somewhat complicated, especially given how simple the scalar version of adler32 is. I was curious to see if I could come up with a simpler method, and in doing so, came up with an algorithm that can be up to 7x faster than fpng's version, and 109x faster than the simple scalar version. 
+      While looking through the [fpng source code](https://github.com/richgel999/fpng), I noticed that its [vectorized adler32 implementation](https://github.com/richgel999/fpng/blob/6926f5a0a78f22d42b074a0ab8032e07736babd4/src/fpng.cpp#L407) seemed somewhat complicated, especially given how simple the scalar version of adler32 is. I was curious to see if I could come up with a simpler method, and in doing so, I came up with an algorithm that can be up to 7x faster than fpng's version, and 109x faster than the simple scalar version. 
 
       If you are unfamiliar with adler32, it is a simple checksumming algorithm used by rsync and zlib (and by extension PNG), designed to optimize for speed over reliability.
 
