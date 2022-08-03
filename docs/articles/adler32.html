@@ -49,10 +49,10 @@ max_sum2(n) = (n/2) * (n+1)(255)
 max_sum2(n) = 255n(n+1))/2
 
 255n(n+1)/2 < 2^bits - 1</pre><p>This will get us close to the true upper bound, but undershoots a bit because it does not account for the starting value of each counter. The maximum starting value for each counter is the modulo (65521) minus one:<pre>255n(n+1)/2 + (n+1)(65521-1) < 2^bits - 1
-when bits = 32, floor(n) = 5521 bytes
+when bits = 32, floor(n) = 5552 bytes
 when bits = 64, floor(n) = 380368439 bytes (~380 megabytes)</pre><p>Now that we have determined the upper bound, we can process input in <code>n</code>-sized chunks accordingly:<pre tabindex=0 class=chroma><code><span class=line><span class=cl><span class=cp>#define ADLER_INIT 1
 </span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_MOD 65521
-</span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_CHUNK_LEN_32 5521
+</span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_CHUNK_LEN_32 5552
 </span></span></span><span class=line><span class=cl><span class=cp></span>
 </span></span><span class=line><span class=cl><span class=kt>uint32_t</span> <span class=nf>Adler32DeferMod32</span><span class=p>(</span><span class=kt>uint32_t</span> <span class=n>start</span><span class=p>,</span> <span class=kt>uint8_t</span> <span class=o>*</span><span class=n>data</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>len</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>  <span class=kt>uint32_t</span> <span class=n>sum</span>  <span class=o>=</span> <span class=n>start</span> <span class=o>&amp;</span> <span class=mh>0xFFFF</span><span class=p>;</span>
@@ -97,7 +97,7 @@ sum += data[0] + data[1];</pre><pre>/* generalize into sum for n bytes */
 sum += data[0] + data[1] + ... + data[n];
 sum2 += n*start_sum + n*data[0] + (n-1)*data[1] + ... + (n-n)*data[n];</pre><p>Now that we have a generalized algorithm for computing adler32 in blocks, we can implement it using 32-byte blocks using AVX2. Due to the chunk size of 32, the maximum chunk length must be lowered to the highest multiple of 32 under the 32 bit chunk length to avoid having to compute a remainder every cycle.<pre tabindex=0 class=chroma><code><span class=line><span class=cl><span class=cp>#define ADLER_HASH_INIT 1
 </span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_MOD 65521
-</span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_CHUNK_LEN_32 5521
+</span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_CHUNK_LEN_32 5552
 </span></span></span><span class=line><span class=cl><span class=cp>#define ADLER_CHUNK_LEN_SIMD_32 (ADLER_CHUNK_LEN_32/32)*32
 </span></span></span><span class=line><span class=cl><span class=cp></span>
 </span></span><span class=line><span class=cl><span class=kt>uint32_t</span> <span class=nf>Adler32AVX</span><span class=p>(</span><span class=kt>uint32_t</span> <span class=n>start</span><span class=p>,</span> <span class=kt>uint8_t</span> <span class=o>*</span><span class=n>data</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>len</span><span class=p>)</span> <span class=p>{</span>

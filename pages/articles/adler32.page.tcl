@@ -115,7 +115,7 @@ uint32_t Adler32DeferMod(uint32_t start, uint8_t *data, size_t len) {
 
     pre {
       255n(n+1)/2 + (n+1)(65521-1) < 2^bits - 1
-      when bits = 32, floor(n) = 5521 bytes
+      when bits = 32, floor(n) = 5552 bytes
       when bits = 64, floor(n) = 380368439 bytes (~380 megabytes)
     }
 
@@ -126,7 +126,7 @@ uint32_t Adler32DeferMod(uint32_t start, uint8_t *data, size_t len) {
     code c {
 #define ADLER_INIT 1
 #define ADLER_MOD 65521
-#define ADLER_CHUNK_LEN_32 5521
+#define ADLER_CHUNK_LEN_32 5552
 
 uint32_t Adler32DeferMod32(uint32_t start, uint8_t *data, size_t len) {
   uint32_t sum  = start & 0xFFFF;
@@ -204,7 +204,7 @@ uint32_t Adler32DeferMod32(uint32_t start, uint8_t *data, size_t len) {
 code c {
 #define ADLER_HASH_INIT 1
 #define ADLER_MOD 65521
-#define ADLER_CHUNK_LEN_32 5521
+#define ADLER_CHUNK_LEN_32 5552
 #define ADLER_CHUNK_LEN_SIMD_32\
   (ADLER_CHUNK_LEN_32/32)*32
 
