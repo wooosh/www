@@ -275,6 +275,7 @@ footer {
 
 .counter img {
   margin: 0;
+  display: none;
 }
 
 /* SYNTAX HIGHLIGHTING */
