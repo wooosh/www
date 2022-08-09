@@ -273,6 +273,10 @@ footer {
   padding-bottom: 1em;
 }
 
+.counter img {
+  margin: 0;
+}
+
 /* SYNTAX HIGHLIGHTING */
 .bg {
   background-color: var(--bg-code-color);

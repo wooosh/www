@@ -93,6 +93,9 @@ proc html-article {filePath article} {
         <span>[} [html-escape $Date] {]</span>
       </header>
       <h1 class='title'>} [html-escape $Title] {</h1>
+      <div class=counter>
+        <img src="https://dynamic.wooo.sh/} $filePath {.svg" height=22 alt="hit counter">
+      </div> 
 
       <p>} $Description {</p>
 
