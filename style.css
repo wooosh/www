@@ -245,10 +245,6 @@ li, p {
   line-height: 1.3;
 }
 
-li {
-  margin-bottom: 0.5em;
-}
-
 li:last-child {
   margin-bottom: 0em;
 }
