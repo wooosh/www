@@ -40,7 +40,7 @@ proc html-index articles {
   append html {<h1 class='hline'>wooo.sh</h1>}
   append html [html-markup {
     txt {
-      Student, 17.
+      Student, 17. Also known as moire.
 
       You can find me on [GitHub](https://github.com/wooosh).
     }
